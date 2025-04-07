@@ -10,12 +10,12 @@ workspace "SnakeRay"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 filter "system:windows"
-    defines { "ClosedWindow=Raylib_CloseWindow"}
+    defines { "CloseWindow=Raylib_CloseWindow"}
 filter {}
 
 project "raylib"
     kind "StaticLib"
-    language "C++"
+    language "C"
     targetdir ("bin/" .. outputdir)
     objdir ("bin-int/" .. outputdir)
 
