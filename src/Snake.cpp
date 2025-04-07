@@ -1,10 +1,11 @@
 #include "Snake.h"
 #include "raymath.h"
+#include "Food.h"
 
 namespace SnakeRay
 {
 	Snake::Snake(int cellSize)
-		: _cellSize(cellSize)
+		: GameObject(cellSize)
 	{
 		_body = std::deque<Vector2>{ Vector2{7, 5}, Vector2{6,5}, Vector2{8,5} };
 	}
@@ -16,7 +17,7 @@ namespace SnakeRay
 
 	void Snake::Update(float deltaTime)
 	{
-		_lastUpdateTime += deltaTime;
+		LastUpdateTime += deltaTime;
 
 		if ((IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) && _direction.x != -1)
 			_direction = Vector2{ 1, 0 };
@@ -27,11 +28,12 @@ namespace SnakeRay
 		if ((IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN)) && _direction.y != -1)
 			_direction = Vector2{ 0, 1 };
 
-		if (_lastUpdateTime >= 0.12f)
+		if (LastUpdateTime >= 0.12f)
 		{
-			_lastUpdateTime = 0;
+			LastUpdateTime = 0;
 			
 			// move
+			
 			Vector2 head = GetHead();
 
 			_body.pop_back();
@@ -43,9 +45,25 @@ namespace SnakeRay
 	{
 		for (size_t i = 0; i < _body.size(); i++)
 		{
-			Rectangle rec = Rectangle{ _body[i].x * _cellSize, _body[i].y * _cellSize, (float)_cellSize, (float)_cellSize };
+			Rectangle rec = Rectangle{ _body[i].x * CellSize, _body[i].y * CellSize, (float)CellSize, (float)CellSize };
 			DrawRectangleRounded(rec, .4f, 4, Color{121,147,81,255});
 		}
+	}
+
+	void Snake::Grow()
+	{
+		Vector2 head = GetHead();
+		_body.push_front(Vector2Add(head, _direction));
+	}
+
+	bool Snake::IsCollidingWithFood(const Food& food)
+	{
+		if (Vector2Subtract(GetHead(), food.GetPosition()) == Vector2{})
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	Vector2 Snake::GetHead()
