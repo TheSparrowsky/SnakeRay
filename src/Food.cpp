@@ -5,17 +5,20 @@ namespace SnakeRay
 	Food::Food(int cellSize)
 		: GameObject(cellSize)
 	{
-
-		float x = GetRandomValue(0, 48);
-		float y = GetRandomValue(0, 48);
-		Position = Vector2{ x, y };
-		
 		_currentCellSize = CellSize; 
-		_rectangle = Rectangle{ Position.x * CellSize, Position.y * CellSize, (float)CellSize, (float)CellSize };
+		Reset();
 	}
 	Food::~Food()
 	{
 
+	}
+
+	void Food::Reset()
+	{
+		float x = GetRandomValue(0, 48);
+		float y = GetRandomValue(0, 48);
+		Position = Vector2{ x, y };
+		_rectangle = Rectangle{ Position.x * CellSize, Position.y * CellSize, (float)CellSize, (float)CellSize };
 	}
 
 	void Food::Update(float deltaTime) 

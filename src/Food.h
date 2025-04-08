@@ -11,6 +11,8 @@ namespace SnakeRay
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+
+		void Reset();
 	private:
 		Rectangle _rectangle;
 
