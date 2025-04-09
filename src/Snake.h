@@ -21,6 +21,8 @@ namespace SnakeRay
 		Vector2 GetHead();
 		Vector2 GetTail();
 
+		void Reset();
+
 	private:
 		Vector2 _direction = { 1,0 };
 		std::deque<Vector2> _body;

@@ -7,7 +7,7 @@ namespace SnakeRay
 	Snake::Snake(int cellSize)
 		: GameObject(cellSize)
 	{
-		_body = std::deque<Vector2>{ Vector2{7, 5}, Vector2{6,5}, Vector2{8,5} };
+		Reset();
 	}
 
 	Snake::~Snake()
@@ -36,8 +36,16 @@ namespace SnakeRay
 			
 			Vector2 head = GetHead();
 
-			_body.pop_back();
-			_body.push_front(Vector2Add(head, _direction));
+			auto moveVector = Vector2Add(head, _direction);
+			if (std::find(_body.begin(), _body.end(), moveVector) != _body.end())
+			{
+				Reset();
+			}
+			else 
+			{
+				_body.pop_back();
+				_body.push_front(moveVector);
+			}
 		}
 	}
 
@@ -64,6 +72,11 @@ namespace SnakeRay
 		}
 
 		return false;
+	}
+
+	void Snake::Reset()
+	{
+		_body = std::deque<Vector2>{ Vector2{7, 5}, Vector2{6,5}, Vector2{5,5} };
 	}
 
 	Vector2 Snake::GetHead()
