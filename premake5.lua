@@ -21,7 +21,7 @@ project "raylib"
 
     files{
         "3rdParty/raylib/src/*.c",
-        "3rdParty/raylib/src/*h"
+        "3rdParty/raylib/src/*.h"
     }
 
     includedirs{
