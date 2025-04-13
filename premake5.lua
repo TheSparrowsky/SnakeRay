@@ -55,13 +55,16 @@ project "SnakeRay"
 
     files {
         "src/**.cpp",
-        "src/**.h"
+        "src/**.h",
+        "assets/*.wav",
+        "assets/sfx/*.wav"
     }
 
     includedirs {
         "3rdParty/raylib/src",
         "3rdParty/raylib/src/external/glfw/include",
-        "src"
+        "src",
+        "assets"
     }
 
     links {
@@ -70,7 +73,10 @@ project "SnakeRay"
 
     filter "system:Windows"
         defines { "PLATFORM_WINDOWS" }
-        links { "winmm", "opengl32", "gdi32" }
+        postbuildcommands {
+            'if not exist "%{cfg.targetdir}\\assets" mkdir "%{cfg.targetdir}\\assets"',
+            'xcopy "%{wks.location}assets" "%{cfg.targetdir}\\assets" /e /y /i'
+        }
 
     filter {}
 

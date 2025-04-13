@@ -22,7 +22,12 @@ namespace SnakeRay
 		int realWindowHeight = _gameOptions.ScreenHeight + (2 * _gameOptions.FrameOffset);
 
 		InitWindow(realWindowWidth, realWindowHeight, _gameOptions.Title.c_str());
+		InitAudioDevice();
 		SetTargetFPS(60);
+
+		Sound scoreSound = LoadSound("assets/sfx/click_04.wav");
+		Sound deathSound = LoadSound("assets/sfx/down_02.wav");
+		Sound backgroundMusic = LoadSound("assets/Music_Loop_5_Melody.wav");
 
 		auto snake = std::make_shared<Snake>(_gameOptions.CellSize); // temporary
 		auto food = std::make_shared<Food>(_gameOptions.CellSize); // temporary
@@ -35,12 +40,18 @@ namespace SnakeRay
 
 		while (!WindowShouldClose())
 		{
+			if (!IsSoundPlaying(backgroundMusic))
+			{
+				PlaySound(backgroundMusic);
+			}
+
 			auto deltaTime = GetFrameTime();
 			BeginDrawing();
 			ClearBackground(Color{ 161,221,112,255 });
 
 			if (snake->IsCollidingWithFood(*food)) // temporary collision detection
 			{
+				PlaySound(scoreSound);
 				food->Reset();
 				snake->Grow();
 				score++;
@@ -48,6 +59,7 @@ namespace SnakeRay
 
 			if (snake->IsCollidingWithFrame(*playgroundFrame))
 			{
+				PlaySound(deathSound);
 				snake->Reset();
 				food->Reset();
 				score = 0;
@@ -70,6 +82,7 @@ namespace SnakeRay
 			EndDrawing();
 		}
 
+		CloseAudioDevice();
 		CloseWindow();
 	}
 
