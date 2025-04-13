@@ -1,6 +1,7 @@
 #include "Snake.h"
 #include "raymath.h"
 #include "Food.h"
+#include "PlaygroundFrame.h"
 
 namespace SnakeRay
 {
@@ -74,9 +75,21 @@ namespace SnakeRay
 		return false;
 	}
 
+	bool Snake::IsCollidingWithFrame(const PlaygroundFrame& frame)
+	{
+		auto head = GetHead();
+		auto framePosition = frame.GetPosition();
+
+		float headX = head.x * CellSize;
+		float headY = head.y * CellSize;
+		return headX <= framePosition.x || headY <= framePosition.y
+			|| headX >= framePosition.x + frame.GetWidth() || headY >= framePosition.y + frame.GetHeight();
+	}
+
 	void Snake::Reset()
 	{
 		_body = std::deque<Vector2>{ Vector2{7, 5}, Vector2{6,5}, Vector2{5,5} };
+		_direction = { 1, 0 };
 	}
 
 	Vector2 Snake::GetHead()

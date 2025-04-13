@@ -1,8 +1,9 @@
 #include "Game.h"
 #include "raylib.h"
 
-#include "Snake.h"
-#include "Food.h"
+#include "Snake.h" // temporary ?
+#include "Food.h" // temporary ?
+#include "PlaygroundFrame.h" // temporary ?
 
 namespace SnakeRay
 {
@@ -17,13 +18,15 @@ namespace SnakeRay
 
 	void Game::Run()
 	{
-		InitWindow(_gameOptions.ScreenWidth, _gameOptions.ScreenHeight, _gameOptions.Title.c_str());
+		InitWindow(_gameOptions.ScreenWidth + (2 * _gameOptions.FrameOffset), _gameOptions.ScreenHeight + (2 * _gameOptions.FrameOffset), _gameOptions.Title.c_str());
 		SetTargetFPS(60);
 
 		auto snake = std::make_shared<Snake>(_gameOptions.CellSize); // temporary
 		auto food = std::make_shared<Food>(_gameOptions.CellSize); // temporary
+		auto playgroundFrame = std::make_shared<PlaygroundFrame>(PlaygroundProperty{ _gameOptions.FrameOffset, _gameOptions.FrameOffset, (float)_gameOptions.ScreenWidth, (float)_gameOptions.ScreenHeight, 5 }, _gameOptions.CellSize); // temporary
 		AddObject(snake);
 		AddObject(food);
+		AddObject(playgroundFrame);
 
 		while (!WindowShouldClose())
 		{
@@ -35,6 +38,12 @@ namespace SnakeRay
 			{
 				food->Reset();
 				snake->Grow();
+			}
+
+			if (snake->IsCollidingWithFrame(*playgroundFrame))
+			{
+				snake->Reset();
+				food->Reset();
 			}
 
 			for (size_t i = 0; i < _gameObjects.size(); i++)

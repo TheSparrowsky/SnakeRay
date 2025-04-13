@@ -15,9 +15,9 @@ namespace SnakeRay
 
 	void Food::Reset()
 	{
-		float x = GetRandomValue(0, 48);
-		float y = GetRandomValue(0, 48);
-		Position = Vector2{ x, y };
+		float x = GetRandomValue(4, 51); // 0,48 + frameOffset ( - frame border width for y) - fixed values, temporary
+		float y = GetRandomValue(4, 51); // =||=
+		Position = Vector2{ x, y};
 		_rectangle = Rectangle{ Position.x * CellSize, Position.y * CellSize, (float)CellSize, (float)CellSize };
 	}
 

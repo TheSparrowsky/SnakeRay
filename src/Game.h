@@ -13,6 +13,7 @@ namespace SnakeRay
 		std::string Title = "SnakeRay";
 
 		int CellSize = 16;
+		float FrameOffset = 64;
 	};
 
 	class Game

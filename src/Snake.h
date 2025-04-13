@@ -5,6 +5,7 @@
 namespace SnakeRay
 {
 	class Food;
+	class PlaygroundFrame;
 	class Snake : public GameObject
 	{
 	public:
@@ -12,7 +13,9 @@ namespace SnakeRay
 		~Snake() override;
 
 		bool IsCollidingWithFood(const Food& food);
+		bool IsCollidingWithFrame(const PlaygroundFrame& frame);
 		void Grow();
+		void Reset();
 
 		void Update(float deltaTime) override;
 		void Draw() override;
@@ -21,7 +24,6 @@ namespace SnakeRay
 		Vector2 GetHead();
 		Vector2 GetTail();
 
-		void Reset();
 
 	private:
 		Vector2 _direction = { 1,0 };
