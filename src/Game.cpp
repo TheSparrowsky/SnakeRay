@@ -1,22 +1,12 @@
 #include "Game.h"
 #include "raylib.h"
 
-#include "Snake.h" // temporary ?
-#include "Food.h" // temporary ?
-#include "PlaygroundFrame.h" // temporary ?
+#include "GamePlayScene.h"
 
 namespace SnakeRay
 {
 	Game::Game(const GameOptions& options)
 		: _gameOptions(options)
-	{
-	}
-
-	Game::~Game()
-	{
-	}
-
-	void Game::Run()
 	{
 		int realWindowWidth = _gameOptions.ScreenWidth + (2 * _gameOptions.FrameOffset);
 		int realWindowHeight = _gameOptions.ScreenHeight + (2 * _gameOptions.FrameOffset);
@@ -25,69 +15,27 @@ namespace SnakeRay
 		InitAudioDevice();
 		SetTargetFPS(60);
 
-		Sound scoreSound = LoadSound("assets/sfx/click_04.wav");
-		Sound deathSound = LoadSound("assets/sfx/down_02.wav");
-		Sound backgroundMusic = LoadSound("assets/Music_Loop_5_Melody.wav");
+		_currentScene = std::make_shared<GamePlayScene>(options);
+	}
 
-		auto snake = std::make_shared<Snake>(_gameOptions.CellSize); // temporary
-		auto food = std::make_shared<Food>(_gameOptions.CellSize); // temporary
-		auto playgroundFrame = std::make_shared<PlaygroundFrame>(PlaygroundProperty{ _gameOptions.FrameOffset, _gameOptions.FrameOffset, (float)_gameOptions.ScreenWidth, (float)_gameOptions.ScreenHeight, 5 }, _gameOptions.CellSize); // temporary
-		AddObject(snake);
-		AddObject(food);
-		AddObject(playgroundFrame);
-
-		int score = 0;
-
-		while (!WindowShouldClose())
-		{
-			if (!IsSoundPlaying(backgroundMusic))
-			{
-				PlaySound(backgroundMusic);
-			}
-
-			auto deltaTime = GetFrameTime();
-			BeginDrawing();
-			ClearBackground(Color{ 161,221,112,255 });
-
-			if (snake->IsCollidingWithFood(*food)) // temporary collision detection
-			{
-				PlaySound(scoreSound);
-				food->Reset();
-				snake->Grow();
-				score++;
-			}
-
-			if (snake->IsCollidingWithFrame(*playgroundFrame))
-			{
-				PlaySound(deathSound);
-				snake->Reset();
-				food->Reset();
-				score = 0;
-			}
-
-			for (size_t i = 0; i < _gameObjects.size(); i++)
-			{
-				_gameObjects[i]->Update(deltaTime);
-			}
-			
-			for (size_t i = 0; i < _gameObjects.size(); i++)
-			{
-				_gameObjects[i]->Draw();
-			}
-
-			// TODO: magic numbers problem
-			DrawText(("Score: " + std::to_string(score)).c_str(), _gameOptions.FrameOffset, _gameOptions.FrameOffset - 50, 40, Color{246,238,201,255});
-			DrawText("SnakeRay", realWindowWidth / 2 - (30 * 4), _gameOptions.ScreenHeight + _gameOptions.FrameOffset + 10, 40, Color{ 246,238,201,255 });
-
-			EndDrawing();
-		}
-
+	Game::~Game()
+	{
 		CloseAudioDevice();
 		CloseWindow();
 	}
 
-	void Game::AddObject(std::shared_ptr<GameObject> gameObject)
+	void Game::Run()
 	{
-		_gameObjects.push_back(gameObject);
+		while (!WindowShouldClose())
+		{
+			auto deltaTime = GetFrameTime();
+			BeginDrawing();
+
+			_currentScene->Update(deltaTime);
+			
+			_currentScene->Draw();
+
+			EndDrawing();
+		}
 	}
 }

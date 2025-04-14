@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include "GameObject.h"
+#include "GameScene.h"
 
 namespace SnakeRay
 {
@@ -19,16 +20,13 @@ namespace SnakeRay
 	class Game
 	{
 	public:
-		using GameObjectList = std::vector<std::shared_ptr<GameObject>>;
-
 		Game(const GameOptions& options = GameOptions());
 		~Game();
 
 		void Run();
 	private:
-		void AddObject(std::shared_ptr<GameObject> gameObject);
-
 		GameOptions _gameOptions;
-		GameObjectList _gameObjects;
+
+		std::shared_ptr<GameScene> _currentScene;
 	};
 };
