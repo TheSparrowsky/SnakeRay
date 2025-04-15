@@ -24,9 +24,11 @@ namespace SnakeRay
 		~Game();
 
 		void Run();
+		void ChangeScene(std::unique_ptr<GameScene> newScene);
+		
+		GameOptions Options;
 	private:
-		GameOptions _gameOptions;
 
-		std::shared_ptr<GameScene> _currentScene;
+		std::unique_ptr<GameScene> _currentScene;
 	};
 };

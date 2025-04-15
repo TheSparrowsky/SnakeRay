@@ -2,20 +2,22 @@
 #include "raylib.h"
 
 #include "GamePlayScene.h"
+#include "MainMenuScene.h"
 
 namespace SnakeRay
 {
 	Game::Game(const GameOptions& options)
-		: _gameOptions(options)
+		: Options(options)
 	{
-		int realWindowWidth = _gameOptions.ScreenWidth + (2 * _gameOptions.FrameOffset);
-		int realWindowHeight = _gameOptions.ScreenHeight + (2 * _gameOptions.FrameOffset);
+		int realWindowWidth = Options.ScreenWidth + (2 * Options.FrameOffset);
+		int realWindowHeight = Options.ScreenHeight + (2 * Options.FrameOffset);
 
-		InitWindow(realWindowWidth, realWindowHeight, _gameOptions.Title.c_str());
+		InitWindow(realWindowWidth, realWindowHeight, Options.Title.c_str());
 		InitAudioDevice();
 		SetTargetFPS(60);
 
-		_currentScene = std::make_shared<GamePlayScene>(options);
+		//_currentScene = std::make_shared<GamePlayScene>(options);
+		_currentScene = std::make_unique<MainMenuScene>(this);
 	}
 
 	Game::~Game()
@@ -37,5 +39,10 @@ namespace SnakeRay
 
 			EndDrawing();
 		}
+	}
+
+	void Game::ChangeScene(std::unique_ptr<GameScene> newScene)
+	{
+		_currentScene = std::move(newScene);
 	}
 }

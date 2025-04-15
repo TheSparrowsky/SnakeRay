@@ -12,14 +12,14 @@ namespace SnakeRay
 	class GamePlayScene : public GameScene
 	{
 	public:
-		GamePlayScene(const GameOptions& options);
+		GamePlayScene(SnakeRay::Game* game);
 		~GamePlayScene() override;
 
 		virtual void Update(float deltaTime) override;
 		virtual void Draw() override;
 
 	private:
-		const GameOptions& _options;
+		GameOptions* _options = nullptr;
 
 		Sound _backgroundMusic;
 		Sound _scoreSound;

@@ -3,16 +3,17 @@
 
 namespace SnakeRay
 {
-	GamePlayScene::GamePlayScene(const GameOptions& options) 
-		: _options(options), GameScene()
+	GamePlayScene::GamePlayScene(SnakeRay::Game* game) 
+		: GameScene(game)
 	{
+		_options = &game->Options;
 		_scoreSound = LoadSound("assets/sfx/click_04.wav");
 		_deathSound = LoadSound("assets/sfx/down_02.wav");
 		_backgroundMusic = LoadSound("assets/Music_Loop_5_Melody.wav");
 
-		_snake = std::make_shared<Snake>(options.CellSize); // temporary
-		_food = std::make_shared<Food>(options.CellSize); // temporary
-		_playgroundFrame = std::make_shared<PlaygroundFrame>(PlaygroundProperty{ options.FrameOffset, options.FrameOffset, (float)options.ScreenWidth, (float)options.ScreenHeight, 5 }, options.CellSize); // temporary
+		_snake = std::make_shared<Snake>(_options->CellSize); // temporary
+		_food = std::make_shared<Food>(_options->CellSize); // temporary
+		_playgroundFrame = std::make_shared<PlaygroundFrame>(PlaygroundProperty{ _options->FrameOffset, _options->FrameOffset, (float)_options->ScreenWidth, (float)_options->ScreenHeight, 5 }, _options->CellSize); // temporary
 		
 		AddObject(_snake);
 		AddObject(_food);
@@ -60,8 +61,8 @@ namespace SnakeRay
 
 	void GamePlayScene::Draw() 
 	{
-		int realWindowWidth = _options.ScreenWidth + (2 * _options.FrameOffset);
-		int realWindowHeight = _options.ScreenHeight + (2 * _options.FrameOffset);
+		int realWindowWidth = _options->ScreenWidth + (2 * _options->FrameOffset);
+		int realWindowHeight = _options->ScreenHeight + (2 * _options->FrameOffset);
 
 		ClearBackground(Color{ 161,221,112,255 });
 
@@ -72,8 +73,8 @@ namespace SnakeRay
 
 		// TODO: magic numbers problem
 		// TODO: should be in scene
-		DrawText(("Score: " + std::to_string(_score)).c_str(), _options.FrameOffset, _options.FrameOffset - 50, 40, Color{ 246,238,201,255 });
-		DrawText("SnakeRay", realWindowWidth / 2 - (30 * 4), _options.ScreenHeight + _options.FrameOffset + 10, 40, Color{ 246,238,201,255 });
+		DrawText(("Score: " + std::to_string(_score)).c_str(), _options->FrameOffset, _options->FrameOffset - 50, 40, Color{ 246,238,201,255 });
+		DrawText("SnakeRay", realWindowWidth / 2 - (30 * 4), _options->ScreenHeight + _options->FrameOffset + 10, 40, Color{ 246,238,201,255 });
 
 	}
 }
