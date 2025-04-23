@@ -14,6 +14,8 @@ namespace SnakeRay
 		MainMenuScene(SnakeRay::Game* game);
 		~MainMenuScene();
 
+		virtual bool OnLoad() override { return true; };
+
 		void Update(float deltaTime) override;
 		void Draw() override;
 

@@ -9,15 +9,19 @@ namespace SnakeRay
 	Game::Game(const GameOptions& options)
 		: Options(options)
 	{
+		GameSceneManager = SceneManager();
+
 		int realWindowWidth = Options.ScreenWidth + (2 * Options.FrameOffset);
 		int realWindowHeight = Options.ScreenHeight + (2 * Options.FrameOffset);
 
 		InitWindow(realWindowWidth, realWindowHeight, Options.Title.c_str());
 		InitAudioDevice();
 		SetTargetFPS(60);
+		SetExitKey(0);
 
 		//_currentScene = std::make_shared<GamePlayScene>(options);
-		_currentScene = std::make_unique<MainMenuScene>(this);
+		_currentScene = GameSceneManager.CreateScene<MainMenuScene>(this);
+		// todo: what if currentscene is nullptr?
 	}
 
 	Game::~Game()
@@ -28,8 +32,9 @@ namespace SnakeRay
 
 	void Game::Run()
 	{
-		while (!WindowShouldClose())
+		while (!_shouldExit)
 		{
+			_shouldExit = WindowShouldClose();
 			auto deltaTime = GetFrameTime();
 			BeginDrawing();
 
@@ -41,7 +46,12 @@ namespace SnakeRay
 		}
 	}
 
-	void Game::ChangeScene(std::unique_ptr<GameScene> newScene)
+	void Game::Exit()
+	{
+		_shouldExit = true;
+	}
+
+	void Game::ChangeScene(std::shared_ptr<GameScene> newScene)
 	{
 		_currentScene = std::move(newScene);
 	}

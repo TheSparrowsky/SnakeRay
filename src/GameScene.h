@@ -14,6 +14,8 @@ namespace SnakeRay
 		GameScene(Game* game) : GamePtr(game), ObjectList(std::vector<std::shared_ptr<GameObject>>()) {}
 		virtual ~GameScene() {};
 
+		virtual bool OnLoad() = 0;
+
 		virtual void Update(float deltaTime) = 0;
 		virtual void Draw() = 0;
 

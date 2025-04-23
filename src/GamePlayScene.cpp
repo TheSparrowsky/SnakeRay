@@ -7,17 +7,6 @@ namespace SnakeRay
 		: GameScene(game)
 	{
 		_options = &game->Options;
-		_scoreSound = LoadSound("assets/sfx/click_04.wav");
-		_deathSound = LoadSound("assets/sfx/down_02.wav");
-		_backgroundMusic = LoadSound("assets/Music_Loop_5_Melody.wav");
-
-		_snake = std::make_shared<Snake>(_options->CellSize); // temporary
-		_food = std::make_shared<Food>(_options->CellSize); // temporary
-		_playgroundFrame = std::make_shared<PlaygroundFrame>(PlaygroundProperty{ _options->FrameOffset, _options->FrameOffset, (float)_options->ScreenWidth, (float)_options->ScreenHeight, 5 }, _options->CellSize); // temporary
-		
-		AddObject(_snake);
-		AddObject(_food);
-		AddObject(_playgroundFrame);
 	}
 
 	GamePlayScene::~GamePlayScene()
@@ -29,8 +18,31 @@ namespace SnakeRay
 	}
 
 
+	bool GamePlayScene::OnLoad()
+	{
+		_scoreSound = LoadSound("assets/sfx/click_04.wav");
+		_deathSound = LoadSound("assets/sfx/down_02.wav");
+		_backgroundMusic = LoadSound("assets/Music_Loop_5_Melody.wav");
+
+		_snake = std::make_shared<Snake>(_options->CellSize); // temporary
+		_food = std::make_shared<Food>(_options->CellSize); // temporary
+		_playgroundFrame = std::make_shared<PlaygroundFrame>(PlaygroundProperty{ _options->FrameOffset, _options->FrameOffset, (float)_options->ScreenWidth, (float)_options->ScreenHeight, 5 }, _options->CellSize); // temporary
+
+		AddObject(_snake);
+		AddObject(_food);
+		AddObject(_playgroundFrame);
+
+		return true;
+	}
+
 	void GamePlayScene::Update(float deltaTime)
 	{
+		if (IsKeyPressed(KEY_ESCAPE))
+		{
+			GamePtr->ChangeScene(GamePtr->GameSceneManager.CreateScene<MainMenuScene>(GamePtr));
+			return;
+		}
+
 		if (!IsSoundPlaying(_backgroundMusic))
 		{
 			PlaySound(_backgroundMusic);

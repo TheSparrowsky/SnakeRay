@@ -4,6 +4,7 @@
 #include <memory>
 #include "GameObject.h"
 #include "GameScene.h"
+#include "SceneManager.h"
 
 namespace SnakeRay
 {
@@ -24,11 +25,14 @@ namespace SnakeRay
 		~Game();
 
 		void Run();
-		void ChangeScene(std::unique_ptr<GameScene> newScene);
+		void ChangeScene(std::shared_ptr<GameScene> newScene);
+
+		void Exit();
 		
 		GameOptions Options;
+		SceneManager GameSceneManager;
 	private:
-
-		std::unique_ptr<GameScene> _currentScene;
+		bool _shouldExit = false;
+		std::shared_ptr<GameScene> _currentScene;
 	};
 };

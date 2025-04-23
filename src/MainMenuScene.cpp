@@ -20,11 +20,27 @@ namespace SnakeRay
 			_currentSelectedIndex--;
 		else if (IsKeyPressed(KEY_S))
 			_currentSelectedIndex++;
-		else if (IsKeyPressed(KEY_ENTER))
+		
+		auto castedItem = static_cast<MenuItems>(_currentSelectedIndex);
+		_currentSelected = &_menuOptions[castedItem];
+		
+		if (IsKeyPressed(KEY_ENTER))
 		{
-			// TODO: gamescene manager? 
-			// TODO: which menu option is selected?
-			GamePtr->ChangeScene(std::make_unique<GamePlayScene>(GamePtr));
+			switch (castedItem)
+			{
+				case MenuItems::PLAY:
+					GamePtr->ChangeScene(GamePtr->GameSceneManager.CreateScene<GamePlayScene>(GamePtr));
+					break;
+				case MenuItems::SCOREBOARD:
+					break;
+				case MenuItems::OPTIONS:
+					break;
+				case MenuItems::EXIT:
+					GamePtr->Exit();
+					break;
+				default:
+					break;
+			}
 			return;
 		}
 
@@ -34,7 +50,6 @@ namespace SnakeRay
 		else if (_currentSelectedIndex > MenuItems::EXIT)
 			_currentSelectedIndex = MenuItems::PLAY;
 
-		_currentSelected = &_menuOptions[static_cast<MenuItems>(_currentSelectedIndex)];
 	}
 
 	void MainMenuScene::Draw()
