@@ -14,7 +14,10 @@ namespace SnakeRay
 		int ScreenHeight = 768;
 		std::string Title = "SnakeRay";
 
+
 		int CellSize = 16;
+		int PlaygroundSize = CellSize * 40;
+
 		float FrameOffset = 64;
 	};
 
@@ -37,13 +40,13 @@ namespace SnakeRay
 	public:
 		GameOptions Options;
 		enum DifficultyLevel { EASY = 0, MEDIUM = 1, HARD = 2};
+		DifficultyLevel CurrentDifficulty = DifficultyLevel::EASY;
 
-		void SetDifficulty(DifficultyLevel level) { _currentDifficulty = level; }
+		void SetDifficulty(DifficultyLevel level) { CurrentDifficulty = level; }
 
 	private:
 		bool _shouldExit = false;
 		std::shared_ptr<GameScene> _currentScene;
 
-		DifficultyLevel _currentDifficulty = DifficultyLevel::EASY;
 	};
 };

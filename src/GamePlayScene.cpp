@@ -19,13 +19,35 @@ namespace SnakeRay
 
 	bool GamePlayScene::OnLoad()
 	{
+		switch (_Game.CurrentDifficulty) 
+		{
+		case Game::EASY:
+			_Game.Options.FrameOffset = 64;
+			_Game.Options.PlaygroundSize = _Game.Options.CellSize * 40;
+			break;
+		case Game::MEDIUM:
+			_Game.Options.FrameOffset = 128;
+			_Game.Options.PlaygroundSize = _Game.Options.CellSize * 32;
+			break;
+		case Game::HARD:
+			_Game.Options.FrameOffset = 192;
+			_Game.Options.PlaygroundSize = _Game.Options.CellSize * 24;
+		}
+
 		_scoreSound = LoadSound("assets/sfx/click_04.wav");
 		_deathSound = LoadSound("assets/sfx/down_02.wav");
 		_backgroundMusic = LoadSound("assets/Music_Loop_5_Melody.wav");
 
-		_snake = std::make_shared<Snake>(_Game.Options.CellSize); // temporary
-		_food = std::make_shared<Food>(_Game.Options.CellSize); // temporary
-		_playgroundFrame = std::make_shared<PlaygroundFrame>(PlaygroundProperty{ _Game.Options.FrameOffset, _Game.Options.FrameOffset, (float)_Game.Options.ScreenWidth, (float)_Game.Options.ScreenHeight, 5 }, _Game.Options.CellSize); // temporary
+		_snake = std::make_shared<Snake>(_Game); // temporary
+		_food = std::make_shared<Food>(_Game); // temporary
+		_playgroundFrame = std::make_shared<PlaygroundFrame>(PlaygroundProperty
+			{ 
+				_Game.Options.FrameOffset, 
+				_Game.Options.FrameOffset, 
+				(float)_Game.Options.PlaygroundSize,
+				(float)_Game.Options.PlaygroundSize,
+				5 
+			}, _Game.Options.CellSize); 
 
 		AddObject(_snake);
 		AddObject(_food);
@@ -72,9 +94,6 @@ namespace SnakeRay
 
 	void GamePlayScene::Draw() 
 	{
-		int realWindowWidth = _Game.Options.ScreenWidth + (2 * _Game.Options.FrameOffset);
-		int realWindowHeight = _Game.Options.ScreenHeight + (2 * _Game.Options.FrameOffset);
-
 		ClearBackground(Color{ 161,221,112,255 });
 
 		for (size_t i = 0; i < ObjectList.size(); i++)
@@ -85,7 +104,6 @@ namespace SnakeRay
 		// TODO: magic numbers problem
 		// TODO: should be in scene
 		DrawText(("Score: " + std::to_string(_score)).c_str(), _Game.Options.FrameOffset, _Game.Options.FrameOffset - 50, 40, Color{ 246,238,201,255 });
-		DrawText("SnakeRay", realWindowWidth / 2 - (30 * 4), _Game.Options.ScreenHeight + _Game.Options.FrameOffset + 10, 40, Color{ 246,238,201,255 });
-
+		DrawText("SnakeRay", _Game.Options.ScreenWidth / 2 - (30 * 4), _Game.Options.ScreenHeight + _Game.Options.FrameOffset + 10, 40, Color{ 246,238,201,255 });
 	}
 }

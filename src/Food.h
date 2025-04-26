@@ -1,12 +1,13 @@
 #pragma once
 #include "GameObject.h"
+#include "Game.h"
 
 namespace SnakeRay
 {
 	class Food : public GameObject
 	{
 	public:
-		Food(int cellSize);
+		Food(Game& game);
 		~Food() override;
 
 		void Update(float deltaTime) override;
@@ -14,6 +15,7 @@ namespace SnakeRay
 
 		void Reset();
 	private:
+		Game& _game;
 		Rectangle _rectangle;
 
 		float _currentCellSize = 0;

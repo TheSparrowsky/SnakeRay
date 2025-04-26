@@ -1,4 +1,5 @@
 #pragma once
+#include "Game.h"
 #include "GameObject.h"
 #include <deque>
 
@@ -9,7 +10,7 @@ namespace SnakeRay
 	class Snake : public GameObject
 	{
 	public:
-		Snake(int cellSize);
+		Snake(Game& game);
 		~Snake() override;
 
 		bool IsCollidingWithFood(const Food& food);
@@ -26,6 +27,7 @@ namespace SnakeRay
 
 
 	private:
+		Game& _game;
 		Vector2 _direction = { 1,0 };
 		std::deque<Vector2> _body;
 	};

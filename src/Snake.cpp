@@ -5,8 +5,8 @@
 
 namespace SnakeRay
 {
-	Snake::Snake(int cellSize)
-		: GameObject(cellSize)
+	Snake::Snake(Game& game)
+		: _game(game), GameObject(game.Options.CellSize)
 	{
 		Reset();
 	}
@@ -88,7 +88,13 @@ namespace SnakeRay
 
 	void Snake::Reset()
 	{
-		_body = std::deque<Vector2>{ Vector2{7, 5}, Vector2{6,5}, Vector2{5,5} };
+		float y = (_game.Options.FrameOffset / _game.Options.CellSize) + 5;
+		float x = (_game.Options.FrameOffset / _game.Options.CellSize) + 5;
+		_body = std::deque<Vector2>{ 
+			Vector2{x + 3, y}, 
+			Vector2{x + 2, y}, 
+			Vector2{x + 1, y} 
+		};
 		_direction = { 1, 0 };
 	}
 

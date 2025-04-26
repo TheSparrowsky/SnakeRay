@@ -9,10 +9,7 @@ namespace SnakeRay
 	Game::Game(const GameOptions& options)
 		: Options(options)
 	{
-		int realWindowWidth = Options.ScreenWidth + (2 * Options.FrameOffset);
-		int realWindowHeight = Options.ScreenHeight + (2 * Options.FrameOffset);
-
-		InitWindow(realWindowWidth, realWindowHeight, Options.Title.c_str());
+		InitWindow(Options.ScreenWidth, Options.ScreenHeight, Options.Title.c_str());
 		InitAudioDevice();
 		SetTargetFPS(60);
 		SetExitKey(0);

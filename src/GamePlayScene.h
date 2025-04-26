@@ -11,6 +11,7 @@
 
 namespace SnakeRay
 {
+	class Snake;
 	class GamePlayScene : public GameScene
 	{
 	public:
