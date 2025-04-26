@@ -7,14 +7,14 @@
 #include "Food.h" // temporary ?
 #include "PlaygroundFrame.h" // temporary ?
 
-#include "MainMenuScene.h" // temporary
+#include "Menu/MainMenu.h" // temporary
 
 namespace SnakeRay
 {
 	class GamePlayScene : public GameScene
 	{
 	public:
-		GamePlayScene(SnakeRay::Game* game);
+		GamePlayScene(SnakeRay::Game& game);
 		~GamePlayScene() override;
 
 		virtual bool OnLoad() override;
@@ -23,8 +23,6 @@ namespace SnakeRay
 		virtual void Draw() override;
 
 	private:
-		GameOptions* _options = nullptr;
-
 		Sound _backgroundMusic{};
 		Sound _scoreSound{};
 		Sound _deathSound{};

@@ -2,15 +2,13 @@
 #include "raylib.h"
 
 #include "GamePlayScene.h"
-#include "MainMenuScene.h"
+#include "Menu/MainMenu.h"
 
 namespace SnakeRay
 {
 	Game::Game(const GameOptions& options)
 		: Options(options)
 	{
-		GameSceneManager = SceneManager();
-
 		int realWindowWidth = Options.ScreenWidth + (2 * Options.FrameOffset);
 		int realWindowHeight = Options.ScreenHeight + (2 * Options.FrameOffset);
 
@@ -20,7 +18,7 @@ namespace SnakeRay
 		SetExitKey(0);
 
 		//_currentScene = std::make_shared<GamePlayScene>(options);
-		_currentScene = GameSceneManager.CreateScene<MainMenuScene>(this);
+		ChangeScene<MainMenu>();
 		// todo: what if currentscene is nullptr?
 	}
 
@@ -39,7 +37,6 @@ namespace SnakeRay
 			BeginDrawing();
 
 			_currentScene->Update(deltaTime);
-			
 			_currentScene->Draw();
 
 			EndDrawing();
@@ -49,10 +46,5 @@ namespace SnakeRay
 	void Game::Exit()
 	{
 		_shouldExit = true;
-	}
-
-	void Game::ChangeScene(std::shared_ptr<GameScene> newScene)
-	{
-		_currentScene = std::move(newScene);
 	}
 }

@@ -4,8 +4,8 @@
 #include <memory>
 #include "GameObject.h"
 #include "GameScene.h"
-#include "SceneManager.h"
 
+#include "Menu/MainMenu.h"
 namespace SnakeRay
 {
 	struct GameOptions
@@ -25,14 +25,25 @@ namespace SnakeRay
 		~Game();
 
 		void Run();
-		void ChangeScene(std::shared_ptr<GameScene> newScene);
-
 		void Exit();
 		
+		template<typename T>
+		void ChangeScene()
+		{
+			_currentScene = std::make_shared<T>(*this);
+			_currentScene->OnLoad();
+		}
+
+	public:
 		GameOptions Options;
-		SceneManager GameSceneManager;
+		enum DifficultyLevel { EASY = 0, MEDIUM = 1, HARD = 2};
+
+		void SetDifficulty(DifficultyLevel level) { _currentDifficulty = level; }
+
 	private:
 		bool _shouldExit = false;
 		std::shared_ptr<GameScene> _currentScene;
+
+		DifficultyLevel _currentDifficulty = DifficultyLevel::EASY;
 	};
 };

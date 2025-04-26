@@ -11,7 +11,7 @@ namespace SnakeRay
 	public:
 		using GameObjects = std::vector<std::shared_ptr<GameObject>>;
 
-		GameScene(Game* game) : GamePtr(game), ObjectList(std::vector<std::shared_ptr<GameObject>>()) {}
+		GameScene(Game& game) : _Game(game), ObjectList(std::vector<std::shared_ptr<GameObject>>()) {}
 		virtual ~GameScene() {};
 
 		virtual bool OnLoad() = 0;
@@ -20,7 +20,7 @@ namespace SnakeRay
 		virtual void Draw() = 0;
 
 	protected:
-		Game* GamePtr = nullptr;
+		Game& _Game;
 		void AddObject(std::shared_ptr<GameObject> gameObject) { ObjectList.push_back(gameObject); }
 
 		GameObjects ObjectList;
