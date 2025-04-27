@@ -13,7 +13,7 @@ namespace SnakeRay
 
 	bool ScoreboardScene::OnLoad()
 	{
-		_scoreboard = _Game._ScoreManager.GetScoreboard();
+		_scoreboard = _Game._ScoreManager.GetScoreboard(true);
 		return true;
 	}
 
@@ -38,7 +38,7 @@ namespace SnakeRay
 
 		if (_beforeSelectedDifficultyIndex != _selectedDifficultyIndex)
 		{
-			_scoreboard = _Game._ScoreManager.GetScoreboard();
+			_scoreboard = _Game._ScoreManager.GetScoreboard(false);
 		}
 	}
 
@@ -93,7 +93,7 @@ namespace SnakeRay
 			if (_scoreboard[_selectedDifficultyIndex].size() >= i + 1)
 			{
 				playerName = _scoreboard[_selectedDifficultyIndex][i].Name;
-				score = _scoreboard[_selectedDifficultyIndex][i].Score;
+				score = std::to_string(_scoreboard[_selectedDifficultyIndex][i].Score);
 			}
 
 			DrawText(playerName.c_str(), _Game.Options.ScreenWidth / 2.f - 160, 220 + (i * 40), 40, Theme::ForeColor);

@@ -402,3 +402,4 @@ FodyWeavers.xsd
 *.sln
 *.vcxproj
 *.vcxproj.filters
+score.txt

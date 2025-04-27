@@ -9,7 +9,7 @@ namespace SnakeRay
 	public:
 		GameOverMenu(Game& game);
 
-		bool OnLoad() override { return true; }
+		bool OnLoad() override;
 		void Update(float deltaTime) override;
 		void Draw() override;
 

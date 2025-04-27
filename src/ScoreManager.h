@@ -17,7 +17,7 @@ namespace SnakeRay
 		inline void AddScore() { _score++; }
 		inline void ResetScore() { _score = 0; }
 
-		Scoreboard GetScoreboard();
+		Scoreboard GetScoreboard(bool readFile = false);
 
 		bool IsGameReseted = false;
 	private:
@@ -29,8 +29,10 @@ namespace SnakeRay
 		bool SaveScoreToFile(Player player, int difficultyLevel);
 		
 		friend class Game;
+		friend class GameOverMenu;
 
 	private:
+		std::vector<std::string> Split(const std::string& str);
 		int _score = 0;
 
 		const std::string _filePath = "./score.txt";

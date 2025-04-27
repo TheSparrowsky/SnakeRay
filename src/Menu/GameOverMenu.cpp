@@ -9,10 +9,16 @@ namespace SnakeRay
 		_scores = game._ScoreManager.GetScore();
 	}
 
+	bool GameOverMenu::OnLoad()
+	{
+		return true;
+	}
+
 	void GameOverMenu::Update(float deltaTime)
 	{
 		if (IsKeyPressed(KEY_ENTER))
 		{
+			_Game._ScoreManager.SaveScoreToFile(Player{ _name, _scores }, _Game.CurrentDifficulty);
 			_Game.ChangeScene<MainMenu>();
 			return;
 		}

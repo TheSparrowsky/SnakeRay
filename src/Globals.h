@@ -11,7 +11,12 @@ namespace SnakeRay
 		struct Player
 		{
 			std::string Name;
-			int Score;
+			int Score = 0;
+
+			bool operator<(const Player& p) const
+			{
+				return Score > p.Score;
+			}
 		};
 
 		using PlayerList = std::vector<Player>; 
