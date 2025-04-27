@@ -14,7 +14,6 @@ namespace SnakeRay
 		SetTargetFPS(60);
 		SetExitKey(0);
 
-		//_currentScene = std::make_shared<GamePlayScene>(options);
 		ChangeScene<MainMenu>();
 		// todo: what if currentscene is nullptr?
 	}

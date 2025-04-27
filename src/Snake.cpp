@@ -40,10 +40,11 @@ namespace SnakeRay
 			auto moveVector = Vector2Add(head, _direction);
 			if (std::find(_body.begin(), _body.end(), moveVector) != _body.end())
 			{
-				Reset();
+				_selfCollides = true;
 			}
 			else 
 			{
+				_selfCollides = false;
 				_body.pop_back();
 				_body.push_front(moveVector);
 			}
@@ -84,6 +85,11 @@ namespace SnakeRay
 		float headY = head.y * CellSize;
 		return headX <= framePosition.x || headY <= framePosition.y
 			|| headX >= framePosition.x + frame.GetWidth() || headY >= framePosition.y + frame.GetHeight();
+	}
+
+	bool Snake::IsCollidingWithItself()
+	{
+		return _selfCollides;
 	}
 
 	void Snake::Reset()

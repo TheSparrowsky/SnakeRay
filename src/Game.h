@@ -4,6 +4,7 @@
 #include <memory>
 #include "GameObject.h"
 #include "GameScene.h"
+#include "ScoreManager.h"
 
 #include "Menu/MainMenu.h"
 namespace SnakeRay
@@ -39,6 +40,8 @@ namespace SnakeRay
 
 	public:
 		GameOptions Options;
+		ScoreManager _ScoreManager{};
+
 		enum DifficultyLevel { EASY = 0, MEDIUM = 1, HARD = 2};
 		DifficultyLevel CurrentDifficulty = DifficultyLevel::EASY;
 

@@ -19,6 +19,7 @@ namespace SnakeRay
 
 	bool GamePlayScene::OnLoad()
 	{
+		_Game._ScoreManager.ResetScore();
 		switch (_Game.CurrentDifficulty) 
 		{
 		case Game::EASY:
@@ -64,6 +65,12 @@ namespace SnakeRay
 			return;
 		}
 
+		if (_isGameOver)
+		{
+			_Game.ChangeScene<GameOverMenu>();
+			return;
+		}
+
 		if (!IsSoundPlaying(_backgroundMusic))
 		{
 			PlaySound(_backgroundMusic);
@@ -74,15 +81,13 @@ namespace SnakeRay
 			PlaySound(_scoreSound);
 			_food->Reset();
 			_snake->Grow();
-			_score++;
+			_Game._ScoreManager.AddScore();
 		}
 
-		if (_snake->IsCollidingWithFrame(*_playgroundFrame))
+		if (_snake->IsCollidingWithFrame(*_playgroundFrame) || _snake->IsCollidingWithItself())
 		{
 			PlaySound(_deathSound);
-			_snake->Reset();
-			_food->Reset();
-			_score = 0;
+			StateReset();
 		}
 
 
@@ -103,7 +108,15 @@ namespace SnakeRay
 
 		// TODO: magic numbers problem
 		// TODO: should be in scene
-		DrawText(("Score: " + std::to_string(_score)).c_str(), _Game.Options.FrameOffset, _Game.Options.FrameOffset - 50, 40, Color{ 246,238,201,255 });
+		DrawText(("Score: " + std::to_string(_Game._ScoreManager.GetScore())).c_str(), _Game.Options.FrameOffset, _Game.Options.FrameOffset - 50, 40, Color{ 246,238,201,255 });
 		DrawText("SnakeRay", _Game.Options.ScreenWidth / 2 - (30 * 4), _Game.Options.ScreenHeight + _Game.Options.FrameOffset + 10, 40, Color{ 246,238,201,255 });
+	}
+
+	void GamePlayScene::StateReset()
+	{
+		_snake->Reset();
+		_food->Reset();
+
+		_isGameOver = true;
 	}
 }

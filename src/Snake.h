@@ -15,6 +15,7 @@ namespace SnakeRay
 
 		bool IsCollidingWithFood(const Food& food);
 		bool IsCollidingWithFrame(const PlaygroundFrame& frame);
+		bool IsCollidingWithItself();
 		void Grow();
 		void Reset();
 
@@ -30,5 +31,7 @@ namespace SnakeRay
 		Game& _game;
 		Vector2 _direction = { 1,0 };
 		std::deque<Vector2> _body;
+
+		bool _selfCollides = false;
 	};
 }

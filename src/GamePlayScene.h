@@ -8,6 +8,7 @@
 #include "PlaygroundFrame.h" // temporary ?
 
 #include "Menu/MainMenu.h" // temporary
+#include "Menu/GameOverMenu.h"
 
 namespace SnakeRay
 {
@@ -24,6 +25,8 @@ namespace SnakeRay
 		virtual void Draw() override;
 
 	private:
+		void StateReset();
+
 		Sound _backgroundMusic{};
 		Sound _scoreSound{};
 		Sound _deathSound{};
@@ -33,5 +36,7 @@ namespace SnakeRay
 		std::shared_ptr<PlaygroundFrame> _playgroundFrame = nullptr; // temporary
 
 		int _score = 0;
+
+		bool _isGameOver = false;
 	};
 }
