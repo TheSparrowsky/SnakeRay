@@ -42,14 +42,14 @@ namespace SnakeRay
 		auto gameOptions = _Game.Options;
 		ClearBackground(Theme::BackgroundColor); // same in GamePlayScene
 		
-		DrawText("SnakeRay", gameOptions.ScreenWidth / 2, 64, 40, Theme::ForeColor);
+		DrawText("SnakeRay", gameOptions.ScreenWidth / 2.f - 275, 64, 120, Theme::ForeColor);
 
 		for (size_t i = 0; i < _options.size(); i++)
 		{
-			DrawText(_options[i], gameOptions.ScreenWidth / 2.f, 128 + (40 * i), 40, Theme::ForeColor);
+			DrawText(_options[i], gameOptions.ScreenWidth / 2.f - 100, 250 + (80 * i), 60, Theme::ForeColor);
 			if (_currentSelectedIndex == i)
 			{
-				DrawText(">", gameOptions.ScreenWidth / 2.f - 40, 128 + (40 * i), 40, Theme::ForeColor);
+				DrawText(">", gameOptions.ScreenWidth / 2.f - 140, 250 + (80 * i), 60, Theme::ForeColor);
 			}
 		}
 

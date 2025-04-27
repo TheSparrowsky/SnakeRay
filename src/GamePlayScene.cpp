@@ -109,7 +109,25 @@ namespace SnakeRay
 		// TODO: magic numbers problem
 		// TODO: should be in scene
 		DrawText(("Score: " + std::to_string(_Game._ScoreManager.GetScore())).c_str(), _Game.Options.FrameOffset, _Game.Options.FrameOffset - 50, 40, Theme::ForeColor);
-		DrawText("SnakeRay", _Game.Options.ScreenWidth / 2 - (30 * 4), _Game.Options.ScreenHeight + _Game.Options.FrameOffset + 10, 40, Theme::ForeColor);
+
+		std::string difficultyText = "";
+		int difficultyTextOffset = 100;
+		switch (_Game.CurrentDifficulty)
+		{
+		case Game::EASY:
+			difficultyText = "Easy";
+			break;
+		case Game::MEDIUM:
+			difficultyText = "Medium";
+			difficultyTextOffset = 140;
+			break;
+		case Game::HARD:
+			difficultyText = "Hard";
+			break;
+		}
+
+		DrawText(difficultyText.c_str(), _Game.Options.FrameOffset + _Game.Options.PlaygroundSize + 10 - difficultyTextOffset, _Game.Options.FrameOffset - 50, 40, Theme::ForeColor);
+		DrawText("SnakeRay", _Game.Options.ScreenWidth / 2.f - 100, _Game.Options.PlaygroundSize + _Game.Options.FrameOffset + 10, 40, Theme::ForeColor);
 	}
 
 	void GamePlayScene::StateReset()
