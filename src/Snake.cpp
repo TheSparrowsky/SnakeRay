@@ -56,7 +56,7 @@ namespace SnakeRay
 		for (size_t i = 0; i < _body.size(); i++)
 		{
 			Rectangle rec = Rectangle{ _body[i].x * CellSize, _body[i].y * CellSize, (float)CellSize, (float)CellSize };
-			DrawRectangleRounded(rec, .4f, 4, Color{121,147,81,255});
+			DrawRectangleRounded(rec, .4f, 4, Theme::SnakeColor);
 		}
 	}
 

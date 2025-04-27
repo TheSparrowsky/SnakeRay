@@ -19,7 +19,5 @@ namespace SnakeRay
 	private:
 		std::array<const char*, 4> _options = { "Easy", "Medium", "Hard", "Back"};
 		int _currentSelectedIndex = 0;
-
-		Color _foreColor = Color{ 246,238,201,255 };
 	};
 }

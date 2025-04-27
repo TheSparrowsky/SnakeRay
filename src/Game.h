@@ -7,6 +7,7 @@
 #include "ScoreManager.h"
 
 #include "Menu/MainMenu.h"
+#include "Globals.h"
 namespace SnakeRay
 {
 	struct GameOptions

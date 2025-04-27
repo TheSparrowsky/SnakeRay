@@ -99,7 +99,7 @@ namespace SnakeRay
 
 	void GamePlayScene::Draw() 
 	{
-		ClearBackground(Color{ 161,221,112,255 });
+		ClearBackground(Theme::BackgroundColor);
 
 		for (size_t i = 0; i < ObjectList.size(); i++)
 		{
@@ -108,8 +108,8 @@ namespace SnakeRay
 
 		// TODO: magic numbers problem
 		// TODO: should be in scene
-		DrawText(("Score: " + std::to_string(_Game._ScoreManager.GetScore())).c_str(), _Game.Options.FrameOffset, _Game.Options.FrameOffset - 50, 40, Color{ 246,238,201,255 });
-		DrawText("SnakeRay", _Game.Options.ScreenWidth / 2 - (30 * 4), _Game.Options.ScreenHeight + _Game.Options.FrameOffset + 10, 40, Color{ 246,238,201,255 });
+		DrawText(("Score: " + std::to_string(_Game._ScoreManager.GetScore())).c_str(), _Game.Options.FrameOffset, _Game.Options.FrameOffset - 50, 40, Theme::ForeColor);
+		DrawText("SnakeRay", _Game.Options.ScreenWidth / 2 - (30 * 4), _Game.Options.ScreenHeight + _Game.Options.FrameOffset + 10, 40, Theme::ForeColor);
 	}
 
 	void GamePlayScene::StateReset()

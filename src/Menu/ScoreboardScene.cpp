@@ -44,13 +44,13 @@ namespace SnakeRay
 
 	void ScoreboardScene::Draw()
 	{
-		ClearBackground(Color{ 161,221,112,255 }); // same in GamePlayScene
+		ClearBackground(Theme::BackgroundColor); // same in GamePlayScene
 		
-		DrawText("Scores", _Game.Options.ScreenWidth / 2.f - 50, 20, 40, Color{ 246,238,201,255 });
+		DrawText("Scores", _Game.Options.ScreenWidth / 2.f - 50, 20, 40, Theme::ForeColor);
 
-		DrawText("Easy", _Game.Options.ScreenWidth / 2.f - 300, 80, 40, Color{ 246,238,201,255 });
-		DrawText("Medium", _Game.Options.ScreenWidth / 2.f - 50, 80, 40, Color{ 246,238,201,255 });
-		DrawText("Hard", _Game.Options.ScreenWidth / 2.f + 200, 80, 40, Color{ 246,238,201,255 });
+		DrawText("Easy", _Game.Options.ScreenWidth / 2.f - 300, 80, 40, Theme::ForeColor);
+		DrawText("Medium", _Game.Options.ScreenWidth / 2.f - 50, 80, 40, Theme::ForeColor);
+		DrawText("Hard", _Game.Options.ScreenWidth / 2.f + 200, 80, 40, Theme::ForeColor);
 
 		Vector2 startPos{};
 		Vector2 endPos{};
@@ -79,10 +79,10 @@ namespace SnakeRay
 			endPos.y = 125;
 		}
 
-		DrawLineEx(startPos, endPos, 5, Color{ 246,238,201,255 });
+		DrawLineEx(startPos, endPos, 5, Theme::ForeColor);
 
-		DrawText("Player", _Game.Options.ScreenWidth / 2.f - 200, 180, 40, Color{ 246,238,201,255 });
-		DrawText("Score", _Game.Options.ScreenWidth / 2.f + 100, 180, 40, Color{ 246,238,201,255 });
+		DrawText("Player", _Game.Options.ScreenWidth / 2.f - 200, 180, 40, Theme::ForeColor);
+		DrawText("Score", _Game.Options.ScreenWidth / 2.f + 100, 180, 40, Theme::ForeColor);
 
 
 		for (int i = 0; i < 10; i++)
@@ -96,10 +96,10 @@ namespace SnakeRay
 				score = _scoreboard[_selectedDifficultyIndex][i].Score;
 			}
 
-			DrawText(playerName.c_str(), _Game.Options.ScreenWidth / 2.f - 160, 220 + (i * 40), 40, Color{246,238,201,255});
-			DrawText(score.c_str(), _Game.Options.ScreenWidth / 2.f + 140, 220 + (i * 40), 40, Color{246,238,201,255});
+			DrawText(playerName.c_str(), _Game.Options.ScreenWidth / 2.f - 160, 220 + (i * 40), 40, Theme::ForeColor);
+			DrawText(score.c_str(), _Game.Options.ScreenWidth / 2.f + 140, 220 + (i * 40), 40, Theme::ForeColor);
 		}
 
-		DrawText("Press ESC to back", _Game.Options.ScreenWidth / 2.f - 200, 700, 40, Color{ 246,238,201,255 });
+		DrawText("Press ESC to back", _Game.Options.ScreenWidth / 2.f - 200, 700, 40, Theme::ForeColor);
 	}
 }

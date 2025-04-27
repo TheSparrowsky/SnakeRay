@@ -41,6 +41,6 @@ namespace SnakeRay
 
 	void Food::Draw()
 	{
-		DrawRectangleRounded(_rectangle, .4f, 4, Color{ 238,78,78,255 });
+		DrawRectangleRounded(_rectangle, .4f, 4, Theme::FoodColor);
 	}
 }

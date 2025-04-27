@@ -15,6 +15,6 @@ namespace SnakeRay
 
 	void PlaygroundFrame::Draw()
 	{
-		DrawRectangleLinesEx(_rectangle, _lineThick, _frameColor);
+		DrawRectangleLinesEx(_rectangle, _lineThick, Theme::ForeColor);
 	}
 }

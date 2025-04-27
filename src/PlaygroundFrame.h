@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "raylib.h"
 
+#include "Globals.h"
+
 namespace SnakeRay
 {
 	struct PlaygroundProperty
@@ -26,8 +28,6 @@ namespace SnakeRay
 
 	private:
 		float _lineThick;
-
-		Color _frameColor{246,238,201,255};
 		Rectangle _rectangle;
 	};
 }

@@ -36,9 +36,9 @@ namespace SnakeRay
 	void DifficultySelectionMenu::Draw()
 	{
 		auto gameOptions = _Game.Options;
-		ClearBackground(Color{ 161,221,112,255 }); // same in GamePlayScene
+		ClearBackground(Theme::BackgroundColor); // same in GamePlayScene
 
-		DrawText("SnakeRay", gameOptions.ScreenWidth / 2, 64, 40, _foreColor);
+		DrawText("SnakeRay", gameOptions.ScreenWidth / 2, 64, 40, Theme::ForeColor);
 
 		for (size_t i = 0; i < _options.size(); i++)
 		{
@@ -48,10 +48,10 @@ namespace SnakeRay
 				rowOffsetMultiplier = 2 * i;
 			}
 
-			DrawText(_options[i], gameOptions.ScreenWidth / 2.f, 128 + (40 * rowOffsetMultiplier), 40, _foreColor);
+			DrawText(_options[i], gameOptions.ScreenWidth / 2.f, 128 + (40 * rowOffsetMultiplier), 40, Theme::ForeColor);
 			if (_currentSelectedIndex == i)
 			{
-				DrawText(">", gameOptions.ScreenWidth / 2.f - 40, 128 + (40 * rowOffsetMultiplier), 40, _foreColor);
+				DrawText(">", gameOptions.ScreenWidth / 2.f - 40, 128 + (40 * rowOffsetMultiplier), 40, Theme::ForeColor);
 			}
 		}
 	}
