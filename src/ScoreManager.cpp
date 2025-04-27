@@ -4,12 +4,20 @@ namespace SnakeRay
 	ScoreManager::ScoreManager() {}
 	ScoreManager::~ScoreManager() {}
 
-	std::array<std::string, 10> ScoreManager::GetScoreboardFromFile()
+	Scoreboard ScoreManager::GetScoreboardFromFile()
 	{
-		return std::array<std::string, 10>();
+		return Scoreboard();
 	}
 
-	bool ScoreManager::SaveScoreToFile(const char* name)
+	Scoreboard ScoreManager::GetScoreboard()
+	{
+		if (_scoreBoard.size() == 0)
+			_scoreBoard = GetScoreboardFromFile();
+
+		return _scoreBoard;
+	}
+
+	bool ScoreManager::SaveScoreToFile(Player player, int difficultyLevel)
 	{
 		return true;
 	}

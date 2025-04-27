@@ -27,8 +27,7 @@ namespace SnakeRay
 			}
 			else if (_currentSelectedIndex == 1) // scoreboard
 			{
-				// TODO: scoreboard
-				//_game.ChangeMenu<>(); // scoreboard
+				_Game.ChangeScene<ScoreboardScene>();
 			}
 			else if (_currentSelectedIndex == 2) // exit
 			{

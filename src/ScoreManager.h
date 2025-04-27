@@ -1,24 +1,32 @@
 #pragma once
 #include <string>
 #include <array>
+#include <vector>
+
+#include "Globals.h"
 
 namespace SnakeRay
 {
+	using namespace SnakeRay::Types;
+	
 	class ScoreManager
 	{
 	public:
+
 		inline int GetScore() { return _score; }
 		inline void AddScore() { _score++; }
 		inline void ResetScore() { _score = 0; }
 
+		Scoreboard GetScoreboard();
 
 		bool IsGameReseted = false;
 	private:
 		ScoreManager();
 		~ScoreManager();
 
-		std::array<std::string, 10> GetScoreboardFromFile();
-		bool SaveScoreToFile(const char* name);
+
+		Scoreboard GetScoreboardFromFile();
+		bool SaveScoreToFile(Player player, int difficultyLevel);
 		
 		friend class Game;
 
@@ -26,6 +34,8 @@ namespace SnakeRay
 		int _score = 0;
 
 		const std::string _filePath = "./score.txt";
+
+		static inline Scoreboard _scoreBoard;
 
 
 	};

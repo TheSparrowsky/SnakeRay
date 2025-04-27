@@ -4,6 +4,7 @@
 #include "../GameScene.h"
 
 #include "DifficultySelectionMenu.h"
+#include "ScoreboardScene.h"
 namespace SnakeRay
 {
 	class MainMenu : public GameScene
